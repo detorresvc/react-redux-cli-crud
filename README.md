@@ -1,25 +1,34 @@
-# REACT REDUX CLI FILE STRUCTURE
+# REACT REDUX CLI CRUD GENERATOR
 
 ## How to start
 
+Dependencies:
+```
+react
+react-redux
+react-router
+react-sexy-table
+react-s-alert
+```
+
 Installation:  
 ```
-npm install -g react-redux-cli-file-structure
+npm install -g react-redux-cli-crud-generator
 
 if permission denied 
 
-sudo npm install -g react-redux-cli-file-structure
+sudo npm install -g react-redux-cli-crud-generator
 ```
 
 Usage:  
 ```
 On you command line type without $
 
-$v -d ~/directory_destination/ ModueNameShouldStudly
+$v-crud -d ~/directory_destination/ ModueNameShouldStudly
 
 OR 
 
-$v --dirdest ~/directory_destination/ ModueNameShouldStudly
+$v-crud --dirdest ~/directory_destination/ ModueNameShouldStudly
 ```
 
 Result:
@@ -29,6 +38,8 @@ directory_destination
 		-actions
 			->index.js
 		-components
+            ->List.js
+            ->Form.js
 		-containers
 			->ModueNameShouldStudly.js
 		-reducers
@@ -38,48 +49,4 @@ directory_destination
 
 ```
 
-ModueNameShouldStudly.js:
-```
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import * as actions from '../actions';
 
-class ModueNameShouldStudly extends Component {
-
-    state = {}
-
-    render(){
-
-                return (
-                        <div></div>
-                )
-        }
-}
-
-export default connect(
-        state => {
-                const moduenameshouldstudly = state.moduenameshouldstudly
-
-                return {
-            moduenameshouldstudly
-                }
-        },
-        dispatch => {
-                return {
-                        action: bindActionCreators(actions,  dispatch)
-                }
-        }
-)(ModueNameShouldStudly)
-```
-
-reducers.js
-```
-import * as c from './constants';
-
-const initState = {}
-
-export const moduenameshouldstudly = (state = initState, action) => {
-        return state;
-}
-```

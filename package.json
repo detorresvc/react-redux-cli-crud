@@ -1,5 +1,5 @@
 {
-  "name": "react-redux-cli-file-structure",
+  "name": "react-redux-cli-crud-generator",
   "version": "1.0.0",
   "description": "cli for react redux crud",
   "scripts": {
@@ -7,7 +7,7 @@
   },
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "git@github.com:detorresvc/react-redux-cli-crud.git"
   },
   "tags": [
     "react",
