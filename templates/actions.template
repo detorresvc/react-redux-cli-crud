@@ -1,0 +1,132 @@
+import Api from '../../Api'; 
+
+import * as c from '../constants';
+import Alert from 'react-s-alert';
+import history from 'react-router/lib/browserHistory';
+
+function onDelete(data){
+	return {
+		type: c.{{moduleNameUpperCase}}_ON_DELETE,
+		data
+	}
+}
+
+export function onChangePanel(panel){
+	return {
+		type: c.{{moduleNameUpperCase}}_ON_CHANGE_PANEL,
+		panel
+	}
+}
+
+function onGetList(data){
+	return {
+		type: c.{{moduleNameUpperCase}}_ON_GET_LIST,
+		data
+	}
+}
+
+export function getList(){
+	return dispatch => {
+		
+		Api.get(`{{apiEndPoint}}`,{}, dispatch)
+		.then(res => {
+			if(!res) return;
+
+			dispatch(onGetList(res.data))
+			
+		});
+	}
+}
+
+export function getFormData(data){
+	return {
+		type: c.{{moduleNameUpperCase}}_ON_GET_FORM_DATA,
+		data
+	}
+}
+
+function onSave(data){
+	return {
+		type: c.{{moduleNameUpperCase}}_ON_SAVE,
+		data
+	}
+}
+
+export function save(data){
+	return dispatch => {
+
+		
+		Api.post(`{{apiEndPoint}}`, data, dispatch)
+			.then(res => {
+				if(!res) return;
+				
+				Alert.success(res.message)
+				
+				sessionStorage.setItem('formData', JSON.stringify(res.data))
+
+				dispatch(onSave(res.data))
+	            history.push(`/{{moduleNameKebabCase}}/${res.data.id}/edit`)
+			});
+	}
+}
+
+function onUpdate(data){
+	return {
+		type: c.{{moduleNameUpperCase}}_ON_UPDATE,
+		data
+	}
+}
+
+export function update(data){
+	return dispatch => {
+		Api.post(`{{apiEndPoint}}/${data.id}`, {
+			...data,
+			_method: 'PUT'
+		}, dispatch)
+		.then(res => {
+			if(!res) return;
+			
+			Alert.success(res.message)
+			sessionStorage.setItem('formData', JSON.stringify(data))
+			dispatch(onUpdate({
+				...data,
+				thumbnail: `${data.photo}${thumbnailCropSize}`
+			}))
+		});
+	}
+}
+
+export function doDelete(data){
+	return dispatch => {
+		Api.post(`{{apiEndPoint}}/${data.id}`,
+			{
+				_method: 'DELETE'
+			}, dispatch)
+			.then(res => {
+				if(!res) return;
+				
+				Alert.success(res.message)
+				dispatch(onDelete(data))
+			});
+	}
+}
+
+export function getSeachFormData(data){
+	return {
+		type: c.{{moduleNameUpperCase}}_ON_GET_SEARCH_FORM_DATA,
+		data
+	}
+}
+
+export function onSearch(data){
+	return {
+		type: c.{{moduleNameUpperCase}}_ON_SEARCH,
+		data
+	}
+}
+
+export function onClearSearch(){
+	return {
+		type: c.{{moduleNameUpperCase}}_ON_CLEAR_SEARCH
+	}
+}

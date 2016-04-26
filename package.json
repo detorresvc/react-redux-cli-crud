@@ -1,0 +1,36 @@
+{
+  "name": "react-redux-cli-file-structure",
+  "version": "1.0.0",
+  "description": "cli for react redux crud",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "tags": [
+    "react",
+    "redux",
+    "boiler plate",
+    "cli",
+    "path",
+    "fs",
+    "crud"
+  ],
+  "files": [
+    "index.js",
+    "templates"
+  ],
+  "author": "vincent de torres",
+  "license": "ISC",
+  "bin": {
+    "v-crud": "./index.js"
+  },
+  "dependencies": {
+    "commander": "^2.9.0",
+    "lodash": "^4.11.1",
+    "mustache": "^2.2.1",
+    "promise": "^7.1.1"
+  }
+}

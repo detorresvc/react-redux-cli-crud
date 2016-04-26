@@ -1,0 +1,30 @@
+export const {{moduleNameUpperCase}}_ON_GET_LIST = '{{moduleNameUpperCase}}_ON_GET_LIST';
+export const {{moduleNameUpperCase}}_ON_SHOW_FORM = '{{moduleNameUpperCase}}_ON_SHOW_FORM';
+export const {{moduleNameUpperCase}}_ON_GET_FORM_DATA = '{{moduleNameUpperCase}}_ON_GET_FORM_DATA';
+export const {{moduleNameUpperCase}}_ON_SAVE = '{{moduleNameUpperCase}}_ON_SAVE';
+export const {{moduleNameUpperCase}}_ON_UPDATE = '{{moduleNameUpperCase}}_ON_UPDATE';
+export const {{moduleNameUpperCase}}_ON_DELETE = '{{moduleNameUpperCase}}_ON_DELETE';
+export const {{moduleNameUpperCase}}_ON_GET_SEARCH_FORM_DATA = '{{moduleNameUpperCase}}_ON_GET_SEARCH_FORM_DATA';
+export const {{moduleNameUpperCase}}_ON_SEARCH = '{{moduleNameUpperCase}}_ON_SEARCH';
+export const {{moduleNameUpperCase}}_ON_CLEAR_SEARCH = '{{moduleNameUpperCase}}_ON_CLEAR_SEARCH';
+export const {{moduleNameUpperCase}}_ON_CHANGE_PANEL = '{{moduleNameUpperCase}}_ON_CHANGE_PANEL';
+
+export const INIT_STATE = {
+	panel: null,
+	listMode: null,
+	formMode: null,
+	formData: {
+	{{#formData}}
+      {{dataOrig}}: '',
+    {{/formData}}
+	},
+	searchFormData: {
+		q: '',
+		f: '',
+		q2: ''
+	},
+	list: [],
+	filteredList: [],
+	viewForm: false,
+	searchHistory: []
+}

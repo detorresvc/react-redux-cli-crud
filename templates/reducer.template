@@ -1,0 +1,126 @@
+import * as c from '../constants';
+import { checkByFilterData } from '../../common/searchHelper';
+
+export function {{moduleNameCamelCase}}(state = c.INIT_STATE, action){
+
+	switch(action.type){
+		case c.{{moduleNameUpperCase}}_ON_CHANGE_PANEL:
+			return Object.assign({}, state, {
+				panel: action.panel
+			})
+		case c.{{moduleNameUpperCase}}_ON_GET_LIST: 
+			return Object.assign({}, state, {
+				list: action.data
+			})
+		case c.{{moduleNameUpperCase}}_ON_SHOW_FORM:
+			return Object.assign({}, state, {
+				viewForm: action.options.show,
+				formMode: action.options.mode ? action.options.mode : state.formMode
+			})	
+		case c.{{moduleNameUpperCase}}_ON_GET_FORM_DATA:
+			return Object.assign({}, state, {
+				formData: {
+					...state.formData,
+					...action.data
+				}
+			})	
+		case c.{{moduleNameUpperCase}}_ON_SAVE: 
+			return Object.assign({}, state, {
+				list: [
+					{
+						...action.data,
+						status: action.data.status == 1 ? true : false
+					}, 
+					...state.list 
+				],
+				formMode: null,
+				viewForm: false
+			})	
+		case c.{{moduleNameUpperCase}}_ON_UPDATE:
+
+			let updatedData = state.list.map(item => {
+				if(item.id == action.data.id){
+					return action.data
+				}
+				return item
+			})
+
+			return Object.assign({}, state, {
+				list: updatedData,
+				formMode: null,
+				viewForm: false
+			})
+		case c.{{moduleNameUpperCase}}_ON_DELETE:
+
+			let deletedData = state.list.filter(item => {
+				return item.id != action.data.id
+			})
+
+			return Object.assign({}, state, {
+				list: deletedData,
+				formMode: null,
+				viewForm: false,
+				formData: c.INIT_STATE.formData
+			})		
+		case c.{{moduleNameUpperCase}}_ON_GET_SEARCH_FORM_DATA:
+			return Object.assign({}, state, {
+				searchFormData: {
+					...state.searchFormData,
+					...action.data
+				}
+			})	
+		case c.{{moduleNameUpperCase}}_ON_SEARCH:
+		
+			let newData = []
+			
+			if(state.listMode == null){
+				
+				newData = () => {
+					return state.list.filter(item => {
+
+						return checkByFilterData(action.data, item)
+					})
+				}
+			}
+
+			if(state.listMode == 'FILTER'){
+				
+				newData = () => {
+					return state.filteredList.filter(item => {
+						
+						return checkByFilterData(action.data, item)
+					})
+				}
+			}
+
+
+			return Object.assign({}, state, {
+				filteredList: newData(),
+				listMode: 'FILTER',
+				panel: null,
+				searchHistory: [
+					...state.searchHistory,
+					{
+						...action.data,
+						result: newData().length
+					}
+				]
+			})	
+		case c.{{moduleNameUpperCase}}_ON_CLEAR_SEARCH:
+			return Object.assign({}, state, {
+				filteredList: [],
+				listMode: null,
+				searchFormData: {
+					q: '',
+					f: '',
+					q2: ''
+				},
+				searchHistory: []
+			})				
+	}
+
+	return state;
+}
+
+
+

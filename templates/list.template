@@ -1,0 +1,67 @@
+import React, { Component, PropTypes } from 'react';
+import SexyTable from 'react-sexy-table';
+
+class List extends Component {
+	
+	state = {}
+
+	render(){
+
+        return (
+            {{=<% %>=}}
+            <div style={{height: 700}}>
+            <%={{ }}=%>
+            	<SexyTable 
+                    settings={true}
+                    rowHeight={105}
+                    search={
+                        {
+                            className: "panel-menu p12",
+                            data: this.props.searchFormData,
+                            onClear: this.props.onClear,
+                            onChange: this.props.getSeachFormData,
+                            onSubmit: this.props.onSearch,
+                            onChangePanel: this.props.onChangePanel,
+                            history: this.props.searchHistory
+                        }
+                    }
+                    panel={this.props.panel}
+                    data={this.props.list}
+                    filteredData={this.props.filteredList}
+                    mode={this.props.listMode}
+                    footerHeight={50}
+                    columns={[
+                    {{#listData}}
+                        {
+                            show: true,
+                            id: '{{dataStarCase}}',
+                            flexGrow: 1,
+                            header: '{{dataStarCase}}',
+                            type: 'string',
+                            cell: '{{dataOrig}}'
+                        },
+                    {{/listData}}
+                        {
+                            show: true,
+                            id: 'Actions',
+                            width: 250,
+                            align: 'center',
+                            header: 'Actions',
+                            cell: 'id',
+                            type: 'custom',
+                            customFormat: (data, row) => {
+                                return this.props.actionsColumn(row)
+                            }
+                        }
+
+                    ]}/>  
+            </div>
+        )
+	}
+}
+
+List.contextTypes = {
+    getSessions: PropTypes.object     
+}
+
+export default List;

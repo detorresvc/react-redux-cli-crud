@@ -1,0 +1,13 @@
+import React, { Component } from 'react';
+import Route from 'react-router/lib/Route';
+import IndexRoute from 'react-router/lib/IndexRoute';
+import {{moduleNameOrig}} from './containers/{{moduleNameOrig}}';
+import List from './components/List';
+import Form from './components/Form';
+
+export const {{moduleNameCamelCase}}Routes = () => 
+	<Route path="{{moduleNameKebabCase}}" component={ {{moduleNameOrig}} } >
+		<IndexRoute component={ List } />
+		<Route path="/{{moduleNameKebabCase}}/create" component={ Form } />
+		<Route path="/{{moduleNameKebabCase}}(/:id)/edit" component={ Form } />
+	</Route>

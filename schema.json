@@ -1,0 +1,28 @@
+{
+	"data" : [
+		{
+			"field": "photo",
+			"type": "string"
+		},
+		{
+			"field": "subject",
+			"type": "string"
+		},
+		{
+			"field": "excerpt",
+			"type": "string"
+		},
+		{
+			"field": "body",
+			"type": "text"
+		},
+		{
+			"field": "publish_date",
+			"type": "date"
+		},
+		{
+			"field": "status",
+			"type": "boolean"
+		}
+	]
+}

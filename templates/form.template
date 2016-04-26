@@ -1,0 +1,64 @@
+import React, { Component, PropTypes } from 'react';
+
+class Form extends Component {
+	
+	state = {}
+
+	componentWillMount(){
+		this.setState(this.props.data)
+	}
+
+	componentWillReceiveProps(props){
+		this.setState(props.data);
+	}
+
+	onChangeText = (e) => {
+		
+		if(this.props.onChange){
+			let nextState = {}
+			nextState[e.target.name] = e.target.value;
+			this.props.onChange(nextState);
+		}
+	}
+
+	render(){
+		
+        return (
+        	<form onSubmit={this.props.onSubmit}>
+	        	<div className="panel-body p25">
+	        		{{#listData}}
+	        		<div className="section row">
+	                    <div className="col-md-12">
+	                    	<fieldset className="from-group">
+	                        	<label htmlFor="photo">{{dataStarCase}}</label>
+	                            <input
+	                            	id="{{dataOrig}}"
+	                                autoComplete="off"
+	                                type="text" 
+	                                name="{{dataOrig}}" 
+	                                onChange={this.onChangeText} 
+	                                value={this.state.{{dataOrig}}} 
+	                                className="form-control" 
+	                                placeholder=""/>
+	                        </fieldset>
+	                    </div>
+		        	</div>
+        			{{/listData}}
+		        	<div className="section row">
+	                    <div className="col-md-12 text-center">
+	                        <button className="btn btn-success btn-md">
+	                        	{this.props.mode()}
+	                        </button>
+	                    </div>
+	                </div>
+	            </div>
+	        </form>
+        )
+	}
+}
+
+Form.contextTypes = {
+    getSessions: PropTypes.object     
+}
+
+export default Form;

@@ -1,0 +1,211 @@
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as actions from '../actions';
+import { INIT_STATE } from '../constants';
+import { Link } from 'react-router';
+import history from 'react-router/lib/browserHistory';
+
+class {{moduleNameOrig}} extends Component {
+	
+    state = {}
+
+	componentWillMount(){
+		const { action, location } = this.props;
+		action.getList()
+
+        if(location.pathname.indexOf('edit') > -1){
+            action.getFormData(JSON.parse(sessionStorage.getItem('formData')))
+        }
+
+        if(location.pathname.indexOf('create') > -1){
+            action.getFormData(INIT_STATE.formData)
+        }
+	}
+
+    getFormData = (data) => {
+        const { action } = this.props;
+        action.getFormData(data)
+    }
+
+    getSeachFormData = (data) => {
+        const { action } = this.props;
+        action.getSeachFormData(data)
+    } 
+
+    onSearch = (e) => {
+        e.preventDefault();
+        const { action, {{moduleNameCamelCase}} } = this.props;
+
+        action.onSearch({{moduleNameCamelCase}}.searchFormData)
+    }
+
+    onClear = (e) => {
+        e.preventDefault();
+        const { action } = this.props;
+        
+        action.onClearSearch()
+    }
+
+    editAction = (data) => {
+        return e => {
+            sessionStorage.setItem('formData', JSON.stringify(data))
+            const { action } = this.props;           
+            e.preventDefault();
+            action.getFormData(data);
+            history.push(`/{{moduleNameKebabCase}}/${data.id}/edit`)
+        }
+    }
+
+    deleteAction = (data) => {
+        return e => {
+            const { action } = this.props;                  
+            e.preventDefault();
+            return false
+        }
+    }
+
+    viewAction = (data) => {
+        return e => {
+            const { action } = this.props;                  
+            e.preventDefault();
+           	return false
+        }
+    }
+
+    actionsColumn = (row) => {
+
+        return (
+            <div className="row">
+                <div className="col-md-4">
+                    <button 
+                        onClick={this.viewAction(row)} 
+                        className="btn btn-xs btn-primary btn-block">
+                        <i className="fa fa-file"/> View
+                    </button>
+                </div>
+                <div className="col-md-4">
+                    <button 
+                        onClick={this.editAction(row)} 
+                        className="btn btn-xs btn-primary btn-block">
+                        <i className="fa fa-pencil"/> Edit
+                    </button>
+                </div>
+                <div className="col-md-4">
+                    <button 
+                        onClick={this.deleteAction(row)} 
+                        className="btn btn-xs btn-primary btn-block">
+                        <i className="fa fa-trash"/> Delete
+                    </button>
+                </div>
+            </div>
+        )
+    }
+
+    bsSize = () => {
+        switch(this.props.formMode){
+            case 'CREATE':
+                return "lg"
+            case 'UPDATE':
+                return "lg"
+            case 'VIEW':
+                return "lg"    
+            default:
+                return "md"     
+        }
+    }
+
+    onChangePanel = (panel) => {
+        return e => {
+            e.preventDefault();
+            this.props.action.onChangePanel(panel);
+        }
+    }
+
+	render(){
+
+		const {  action, params, {{moduleNameCamelCase}} } = this.props;
+		
+		return (
+			<div>
+                <header id="topbar" className="ph10">
+                    {{=<% %>=}}
+                    <b style={{position: 'absolute', top:15}}>
+                    <%={{ }}=%>
+                    {{moduleNameUpperCase}}
+                    </b>
+                    <div className="topbar-right">
+                        {this.props.location.pathname == '/{{moduleNameKebabCase}}' ?
+                            <Link 
+                                onClick={() => {
+                                    action.getFormData(INIT_STATE.formData)
+                                }}
+                                to="/{{moduleNameKebabCase}}/create"
+                                className="btn btn-block btn-info">
+                                <i className="fa fa-plus" />Create New {{moduleStartCase}}</Link>
+                            : <Link 
+                                    to="/{{moduleNameKebabCase}}"
+                                    className="btn btn-block btn-info">
+                                    <i className="fa fa-arrow-left" />
+                                    Back to list</Link>
+                        }
+                    </div>
+                </header>
+                <section id="content">  
+                    <div className="tray tray-center">
+                        <div className="panel" id="cms-table">
+                            
+                              {React.cloneElement(this.props.children, {
+                                mode: () => {
+                                    if(this.props.location.pathname.indexOf('create') > -1){
+                                        return "SAVE"
+                                    }
+                                    if(this.props.location.pathname.indexOf('edit') > -1){
+                                        return "UPDATE"
+                                    }
+                                },
+                                action, 
+                                ...{{moduleNameCamelCase}}, 
+                                params,
+                                onClear: this.onClear,
+                                getSeachFormData: this.getSeachFormData,
+                                onSearch: this.onSearch,
+                                onChangePanel: this.onChangePanel,
+                                searchHistory: this.searchHistory,
+                                formatStatus: this.formatStatus,
+                                actionsColumn: this.actionsColumn,
+                                onChange: this.getFormData,
+                                data: {{moduleNameCamelCase}}.formData,
+                                onSubmit: (e) => {
+                                    
+                                    e.preventDefault();
+                                    if(this.props.location.pathname.indexOf('create') > -1){
+                                        action.save({{moduleNameCamelCase}}.formData)
+                                    }
+                                    if(this.props.location.pathname.indexOf('edit') > -1){
+                                        action.update({{moduleNameCamelCase}}.formData)
+                                    }
+                                }
+                              })}
+                        </div>
+                    </div>
+                </section>
+            </div>
+		)
+	}
+}
+
+export default connect(
+	state => {
+		const {{moduleNameCamelCase}} = state.{{moduleNameCamelCase}}
+       
+		return {
+			{{moduleNameCamelCase}}
+		}
+	},
+	dispatch => {
+		return {
+			action: bindActionCreators(actions,  dispatch)
+		}
+	}
+)({{moduleNameOrig}})
