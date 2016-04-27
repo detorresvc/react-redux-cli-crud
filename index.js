@@ -34,7 +34,7 @@ program
   	.then(function(destination){
 
 
-  		var mod = destination+_str.kebabCase(moduleName);
+  		var mod = destination+'/'+_str.kebabCase(moduleName);
 
   		fs.mkdirSync(mod)
 
@@ -128,7 +128,7 @@ program
         }
         
 
-        if(folders.indexOf(program.dirdest+mod+'/containers') > -1){
+        if(folders.indexOf(program.dirdest+'/'+mod+'/containers') > -1){
             
             var p1 = new Promise(function(resolve, reject){
 
@@ -136,10 +136,10 @@ program
                     
                 var output = Mustache.render(containerTemplate, containerData);             
 
-                fs.writeFileSync(program.dirdest+mod+'/containers/'+containerData.moduleNameOrig+".js", output);
+                fs.writeFileSync(program.dirdest+'/'+mod+'/containers/'+containerData.moduleNameOrig+".js", output);
 
-                if(fs.existsSync(program.dirdest+mod+'/containers/'+containerData.moduleNameOrig+".js")){
-                  resolve(program.dirdest+mod+'/containers'+containerData.moduleNameOrig+".js")
+                if(fs.existsSync(program.dirdest+'/'+mod+'/containers/'+containerData.moduleNameOrig+".js")){
+                  resolve(program.dirdest+'/'+mod+'/containers'+containerData.moduleNameOrig+".js")
                 }
                 else{
                   reject('container didnt created')
@@ -150,7 +150,7 @@ program
         }
 
 
-        if(folders.indexOf(program.dirdest+mod+'/reducers') > -1){
+        if(folders.indexOf(program.dirdest+'/'+mod+'/reducers') > -1){
             
             var p2 = new Promise(function(resolve, reject){
 
@@ -158,10 +158,10 @@ program
                     
                 var output = Mustache.render(containerTemplate, containerData);             
 
-                fs.writeFileSync(program.dirdest+mod+'/reducers/index.js', output);
+                fs.writeFileSync(program.dirdest+'/'+mod+'/reducers/index.js', output);
 
-                if(fs.existsSync(program.dirdest+mod+'/reducers/index.js')){
-                  resolve(program.dirdest+mod+'/reducers/index.js')
+                if(fs.existsSync(program.dirdest+'/'+mod+'/reducers/index.js')){
+                  resolve(program.dirdest+'/'+mod+'/reducers/index.js')
                 }
                 else{
                   reject('reducer didnt created')
@@ -172,7 +172,7 @@ program
         }
 
 
-        if(folders.indexOf(program.dirdest+mod+'/actions') > -1){
+        if(folders.indexOf(program.dirdest+'/'+mod+'/actions') > -1){
             
             var p3 = new Promise(function(resolve, reject){
 
@@ -180,10 +180,10 @@ program
                     
                 var output = Mustache.render(containerTemplate, containerData);  
                     
-                fs.writeFileSync(program.dirdest+mod+'/actions/index.js',output);
+                fs.writeFileSync(program.dirdest+'/'+mod+'/actions/index.js',output);
 
-                if(fs.existsSync(program.dirdest+mod+'/actions/index.js')){
-                  resolve(program.dirdest+mod+'/actions/index.js')
+                if(fs.existsSync(program.dirdest+'/'+mod+'/actions/index.js')){
+                  resolve(program.dirdest+'/'+mod+'/actions/index.js')
                 }
                 else{
                   reject('actions didnt created')
@@ -193,7 +193,7 @@ program
 
         }
 
-        if(folders.indexOf(program.dirdest+mod+'/components') > -1){
+        if(folders.indexOf(program.dirdest+'/'+mod+'/components') > -1){
             
             var p4 = new Promise(function(resolve, reject){
 
@@ -201,10 +201,10 @@ program
                     
                 var output = Mustache.render(formTemplate, containerData);  
                     
-                fs.writeFileSync(program.dirdest+mod+'/components/Form.js',output);
+                fs.writeFileSync(program.dirdest+'/'+mod+'/components/Form.js',output);
 
-                if(fs.existsSync(program.dirdest+mod+'/components/Form.js')){
-                  resolve(program.dirdest+mod+'/components/Form.js')
+                if(fs.existsSync(program.dirdest+'/'+mod+'/components/Form.js')){
+                  resolve(program.dirdest+'/'+mod+'/components/Form.js')
                 }
                 else{
                   reject('form didnt created')
@@ -214,7 +214,7 @@ program
 
         }
 
-        if(folders.indexOf(program.dirdest+mod+'/components') > -1){
+        if(folders.indexOf(program.dirdest+'/'+mod+'/components') > -1){
             
             var p5 = new Promise(function(resolve, reject){
 
@@ -222,10 +222,10 @@ program
                     
                 var output = Mustache.render(listTemplate, containerData);  
                     
-                fs.writeFileSync(program.dirdest+mod+'/components/List.js',output);
+                fs.writeFileSync(program.dirdest+'/'+mod+'/components/List.js',output);
 
-                if(fs.existsSync(program.dirdest+mod+'/components/List.js')){
-                  resolve(program.dirdest+mod+'/components/List.js')
+                if(fs.existsSync(program.dirdest+'/'+mod+'/components/List.js')){
+                  resolve(program.dirdest+'/'+mod+'/components/List.js')
                 }
                 else{
                   reject('form didnt created')
@@ -235,7 +235,7 @@ program
 
         }
 
-        if(folders.indexOf(program.dirdest+mod+'/constants') > -1){
+        if(folders.indexOf(program.dirdest+'/'+mod+'/constants') > -1){
 
           var p6 = new Promise(function(resolve, reject){
 
@@ -243,10 +243,10 @@ program
                   
               var output = Mustache.render(constantsTemplate, containerData); 
 
-              fs.writeFileSync(program.dirdest+mod+'/constants/index.js', output);
+              fs.writeFileSync(program.dirdest+'/'+mod+'/constants/index.js', output);
 
-              if(fs.existsSync(program.dirdest+mod+'/constants/index.js')){
-                resolve(program.dirdest+mod+'/constants/index.js')
+              if(fs.existsSync(program.dirdest+'/'+mod+'/constants/index.js')){
+                resolve(program.dirdest+'/'+mod+'/constants/index.js')
               }
               else{
                 reject('constants didnt created')
@@ -261,10 +261,10 @@ program
                 
             var output = Mustache.render(routesTemplate, containerData);             
 
-            fs.writeFileSync(program.dirdest+mod+'/routes.js', output);
+            fs.writeFileSync(program.dirdest+'/'+mod+'/routes.js', output);
 
-            if(fs.existsSync(program.dirdest+mod+'/routes.js')){
-              resolve(program.dirdest+mod+'/routes.js')
+            if(fs.existsSync(program.dirdest+'/'+mod+'/routes.js')){
+              resolve(program.dirdest+'/'+mod+'/routes.js')
             }
             else{
               reject('routes didnt created')

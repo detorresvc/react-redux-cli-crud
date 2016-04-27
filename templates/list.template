@@ -13,7 +13,7 @@ class List extends Component {
             <%={{ }}=%>
             	<SexyTable 
                     settings={true}
-                    rowHeight={105}
+                    rowHeight={40}
                     search={
                         {
                             className: "panel-menu p12",

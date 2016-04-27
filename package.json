@@ -28,6 +28,7 @@
     "v-crud": "./index.js"
   },
   "dependencies": {
+    "colors": "^1.1.2",
     "commander": "^2.9.0",
     "lodash": "^4.11.1",
     "mustache": "^2.2.1",
