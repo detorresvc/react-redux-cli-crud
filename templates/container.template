@@ -135,7 +135,7 @@ class {{moduleNameOrig}} extends Component {
                     getSeachFormData: this.getSeachFormData,
                     onSearch: this.onSearch,
                     onChangePanel: this.onChangePanel,
-                    searchHistory: this.searchHistory,
+                    searchHistory: {{moduleNameCamelCase}}.searchHistory,
                     formatStatus: this.formatStatus,
                     actionsColumn: this.actionsColumn
                 })
@@ -153,7 +153,6 @@ class {{moduleNameOrig}} extends Component {
                             return "UPDATE"
                         }
                     },
-                    onChange: this.getFormData,
                     data: {{moduleNameCamelCase}}.formData,
                     onSubmit: (data) => {
                         
