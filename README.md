@@ -24,11 +24,11 @@ Usage:
 ```
 On you command line type without $
 
-$v-crud -d ~/directory_destination/ ModueNameShouldStudly
+$v-crud -d ~/directory_destination ModueNameShouldStudly
 
 OR 
 
-$v-crud --dirdest ~/directory_destination/ ModueNameShouldStudly
+$v-crud --dirdest ~/directory_destination ModueNameShouldStudly
 ```
 
 Result:
