@@ -123,9 +123,57 @@ class {{moduleNameOrig}} extends Component {
         }
     }
 
+    renderChildren = () => {
+
+        const {  action, params, {{moduleNameCamelCase}} } = this.props;
+        
+        if(location.pathname == `/{{moduleNameKebabCase}}`){
+            return (
+                React.cloneElement(this.props.children, {
+                    ...{{moduleNameCamelCase}}, 
+                    onClear: this.onClear,
+                    getSeachFormData: this.getSeachFormData,
+                    onSearch: this.onSearch,
+                    onChangePanel: this.onChangePanel,
+                    searchHistory: this.searchHistory,
+                    formatStatus: this.formatStatus,
+                    actionsColumn: this.actionsColumn
+                })
+            )
+        }
+
+        if(location.pathname == `/{{moduleNameKebabCase}}/${params.id}/edit` || location.pathname == `/{{moduleNameKebabCase}}/create`){
+            return (
+                React.cloneElement(this.props.children, {
+                    mode: () => {
+                        if(location.pathname == `/{{moduleNameKebabCase}}/${params.id}/edit`){
+                            return "SAVE"
+                        }
+                        if(location.pathname == `/{{moduleNameKebabCase}}/create`){
+                            return "UPDATE"
+                        }
+                    },
+                    onChange: this.getFormData,
+                    data: {{moduleNameCamelCase}}.formData,
+                    onSubmit: (e) => {
+                        
+                        e.preventDefault();
+                        if(location.pathname == `/{{moduleNameKebabCase}}/${params.id}/edit`){
+                            action.save({{moduleNameCamelCase}}.formData)
+                        }
+
+                        if(location.pathname == `/{{moduleNameKebabCase}}/create`){
+                            action.update({{moduleNameCamelCase}}.formData)
+                        }
+                    }
+                })
+            )
+        }
+    }
+
 	render(){
 
-		const {  action, params, {{moduleNameCamelCase}} } = this.props;
+		const {  action,location ,params, {{moduleNameCamelCase}} } = this.props;
 		
 		return (
 			<div>
@@ -155,40 +203,7 @@ class {{moduleNameOrig}} extends Component {
                 <section id="content">  
                     <div className="tray tray-center">
                         <div className="panel" id="cms-table">
-                            
-                              {React.cloneElement(this.props.children, {
-                                mode: () => {
-                                    if(location.pathname == `/{{moduleNameKebabCase}}/${params.id}/edit`){
-                                        return "SAVE"
-                                    }
-                                    if(location.pathname == `/{{moduleNameKebabCase}}/create`){
-                                        return "UPDATE"
-                                    }
-                                },
-                                action, 
-                                ...{{moduleNameCamelCase}}, 
-                                params,
-                                onClear: this.onClear,
-                                getSeachFormData: this.getSeachFormData,
-                                onSearch: this.onSearch,
-                                onChangePanel: this.onChangePanel,
-                                searchHistory: this.searchHistory,
-                                formatStatus: this.formatStatus,
-                                actionsColumn: this.actionsColumn,
-                                onChange: this.getFormData,
-                                data: {{moduleNameCamelCase}}.formData,
-                                onSubmit: (e) => {
-                                    
-                                    e.preventDefault();
-                                    if(location.pathname == `/{{moduleNameKebabCase}}/${params.id}/edit`){
-                                        action.save({{moduleNameCamelCase}}.formData)
-                                    }
-
-                                    if(location.pathname == `/{{moduleNameKebabCase}}/create`){
-                                        action.update({{moduleNameCamelCase}}.formData)
-                                    }
-                                }
-                              })}
+                              {this.renderChildren()}
                         </div>
                     </div>
                 </section>

@@ -75,7 +75,14 @@ program
   			}
   		});
 
-  		return Promise.all([p1, p2, p3, p4]).then(function(values) { 
+      var p5 = new Promise(function(resolve, reject){
+        if(fs.existsSync(module)){
+          fs.mkdir(module+'/constants')
+          resolve(module+'/constants')
+        }
+      });
+
+  		return Promise.all([p1, p2, p3, p4, p5]).then(function(values) { 
 		    return values
 		  });
 
@@ -228,23 +235,25 @@ program
 
         }
 
+        if(folders.indexOf(program.dirdest+mod+'/constants') > -1){
 
-        var p6 = new Promise(function(resolve, reject){
+          var p6 = new Promise(function(resolve, reject){
 
-            var constantsTemplate = fs.readFileSync(BASE_PATH+'/templates/constants.template').toString()
-                
-            var output = Mustache.render(constantsTemplate, containerData); 
+              var constantsTemplate = fs.readFileSync(BASE_PATH+'/templates/constants.template').toString()
+                  
+              var output = Mustache.render(constantsTemplate, containerData); 
 
-            fs.writeFileSync(program.dirdest+mod+'/constants.js', output);
+              fs.writeFileSync(program.dirdest+mod+'/constants/index.js', output);
 
-            if(fs.existsSync(program.dirdest+mod+'/constants.js')){
-              resolve(program.dirdest+mod+'/constants.js')
-            }
-            else{
-              reject('constants didnt created')
-            }
+              if(fs.existsSync(program.dirdest+mod+'/constants/index.js')){
+                resolve(program.dirdest+mod+'/constants/index.js')
+              }
+              else{
+                reject('constants didnt created')
+              }
 
-        });
+          });
+        }
 
         var p7 = new Promise(function(resolve, reject){
 
