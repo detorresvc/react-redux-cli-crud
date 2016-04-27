@@ -33,6 +33,10 @@ export function {{moduleNameCamelCase}}(state = c.INIT_STATE, action){
 					}, 
 					...state.list 
 				],
+				formData: {
+					...action.data,
+					status: action.data.status == 1 ? true : false
+				},
 				formMode: null,
 				viewForm: false
 			})	
@@ -93,7 +97,6 @@ export function {{moduleNameCamelCase}}(state = c.INIT_STATE, action){
 				}
 			}
 
-
 			return Object.assign({}, state, {
 				filteredList: newData(),
 				listMode: 'FILTER',
@@ -110,11 +113,7 @@ export function {{moduleNameCamelCase}}(state = c.INIT_STATE, action){
 			return Object.assign({}, state, {
 				filteredList: [],
 				listMode: null,
-				searchFormData: {
-					q: '',
-					f: '',
-					q2: ''
-				},
+				searchFormData: c.INIT_STATE.searchFormData,
 				searchHistory: []
 			})				
 	}

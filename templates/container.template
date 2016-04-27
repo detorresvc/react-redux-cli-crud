@@ -11,14 +11,15 @@ class {{moduleNameOrig}} extends Component {
     state = {}
 
 	componentWillMount(){
-		const { action, location } = this.props;
+		const { action, location, params } = this.props;
 		action.getList()
 
-        if(location.pathname.indexOf('edit') > -1){
+
+        if(location.pathname == `/{{moduleNameKebabCase}}/${params.id}/edit`){
             action.getFormData(JSON.parse(sessionStorage.getItem('formData')))
         }
 
-        if(location.pathname.indexOf('create') > -1){
+        if(location.pathname == `/{{moduleNameKebabCase}}/create`){
             action.getFormData(INIT_STATE.formData)
         }
 	}
@@ -157,10 +158,10 @@ class {{moduleNameOrig}} extends Component {
                             
                               {React.cloneElement(this.props.children, {
                                 mode: () => {
-                                    if(this.props.location.pathname.indexOf('create') > -1){
+                                    if(location.pathname == `/{{moduleNameKebabCase}}/${params.id}/edit`){
                                         return "SAVE"
                                     }
-                                    if(this.props.location.pathname.indexOf('edit') > -1){
+                                    if(location.pathname == `/{{moduleNameKebabCase}}/create`){
                                         return "UPDATE"
                                     }
                                 },
@@ -179,10 +180,11 @@ class {{moduleNameOrig}} extends Component {
                                 onSubmit: (e) => {
                                     
                                     e.preventDefault();
-                                    if(this.props.location.pathname.indexOf('create') > -1){
+                                    if(location.pathname == `/{{moduleNameKebabCase}}/${params.id}/edit`){
                                         action.save({{moduleNameCamelCase}}.formData)
                                     }
-                                    if(this.props.location.pathname.indexOf('edit') > -1){
+
+                                    if(location.pathname == `/{{moduleNameKebabCase}}/create`){
                                         action.update({{moduleNameCamelCase}}.formData)
                                     }
                                 }
