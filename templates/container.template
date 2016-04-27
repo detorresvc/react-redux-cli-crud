@@ -146,24 +146,26 @@ class {{moduleNameOrig}} extends Component {
             return (
                 React.cloneElement(this.props.children, {
                     mode: () => {
-                        if(location.pathname == `/{{moduleNameKebabCase}}/${params.id}/edit`){
+                        if(location.pathname == `/{{moduleNameKebabCase}}/create`){
                             return "SAVE"
                         }
-                        if(location.pathname == `/{{moduleNameKebabCase}}/create`){
+                        if(location.pathname == `/{{moduleNameKebabCase}}/${params.id}/edit`){
                             return "UPDATE"
                         }
                     },
                     onChange: this.getFormData,
                     data: {{moduleNameCamelCase}}.formData,
-                    onSubmit: (e) => {
+                    onSubmit: (data) => {
                         
-                        e.preventDefault();
-                        if(location.pathname == `/{{moduleNameKebabCase}}/${params.id}/edit`){
-                            action.save({{moduleNameCamelCase}}.formData)
-                        }
+                        return e => {
+                            e.preventDefault();
+                            if(location.pathname == `/{{moduleNameKebabCase}}/create`){
+                                action.save(data)
+                            }
 
-                        if(location.pathname == `/{{moduleNameKebabCase}}/create`){
-                            action.update({{moduleNameCamelCase}}.formData)
+                            if(location.pathname == `/{{moduleNameKebabCase}}/${params.id}/edit`){
+                                action.update(data)
+                            }
                         }
                     }
                 })
@@ -184,7 +186,8 @@ class {{moduleNameOrig}} extends Component {
                     {{moduleNameUpperCase}}
                     </b>
                     <div className="topbar-right">
-                        {this.props.location.pathname == '/{{moduleNameKebabCase}}' ?
+                        {this.props.location.pathname == '/{{moduleNameKebabCase}}' 
+                            ?
                             <Link 
                                 onClick={() => {
                                     action.getFormData(INIT_STATE.formData)
@@ -192,11 +195,12 @@ class {{moduleNameOrig}} extends Component {
                                 to="/{{moduleNameKebabCase}}/create"
                                 className="btn btn-block btn-info">
                                 <i className="fa fa-plus" />Create New {{moduleStartCase}}</Link>
-                            : <Link 
-                                    to="/{{moduleNameKebabCase}}"
-                                    className="btn btn-block btn-info">
-                                    <i className="fa fa-arrow-left" />
-                                    Back to list</Link>
+                            : 
+                            <Link 
+                                to="/{{moduleNameKebabCase}}"
+                                className="btn btn-block btn-info">
+                                <i className="fa fa-arrow-left" />
+                                Back to list</Link>
                         }
                     </div>
                 </header>
